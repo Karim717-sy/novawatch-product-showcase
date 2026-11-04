@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BatteryRouteImport } from './routes/battery'
+import { Route as ConnectivityRouteImport } from './routes/connectivity'
+import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as HealthRouteImport } from './routes/health'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BatteryRoute = BatteryRouteImport.update({
+  id: '/battery',
+  path: '/battery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectivityRoute = ConnectivityRouteImport.update({
+  id: '/connectivity',
+  path: '/connectivity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/battery': typeof BatteryRoute
+  '/connectivity': typeof ConnectivityRoute
+  '/discover': typeof DiscoverRoute
+  '/health': typeof HealthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/battery': typeof BatteryRoute
+  '/connectivity': typeof ConnectivityRoute
+  '/discover': typeof DiscoverRoute
+  '/health': typeof HealthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/battery': typeof BatteryRoute
+  '/connectivity': typeof ConnectivityRoute
+  '/discover': typeof DiscoverRoute
+  '/health': typeof HealthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/battery' | '/connectivity' | '/discover' | '/health'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/battery' | '/connectivity' | '/discover' | '/health'
+  id: '__root__' | '/' | '/battery' | '/connectivity' | '/discover' | '/health'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BatteryRoute: typeof BatteryRoute
+  ConnectivityRoute: typeof ConnectivityRoute
+  DiscoverRoute: typeof DiscoverRoute
+  HealthRoute: typeof HealthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/battery': {
+      id: '/battery'
+      path: '/battery'
+      fullPath: '/battery'
+      preLoaderRoute: typeof BatteryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connectivity': {
+      id: '/connectivity'
+      path: '/connectivity'
+      fullPath: '/connectivity'
+      preLoaderRoute: typeof ConnectivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BatteryRoute: BatteryRoute,
+  ConnectivityRoute: ConnectivityRoute,
+  DiscoverRoute: DiscoverRoute,
+  HealthRoute: HealthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
