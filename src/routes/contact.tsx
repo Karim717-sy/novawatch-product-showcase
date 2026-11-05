@@ -34,7 +34,7 @@ function Contact() {
       return;
     }
     setErrors({});
-    setSentTo(r.values.fullName.split(" ")[0]);
+    setSentTo(r.values.fullName.split(" ")[0] ?? r.values.fullName);
     form.reset();
   };
 
