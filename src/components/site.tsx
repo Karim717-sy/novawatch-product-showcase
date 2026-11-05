@@ -42,7 +42,7 @@ export function Nav() {
               {l.label}
             </Link>
           ))}
-          <a href="#contact" className="text-sm text-muted-foreground transition hover:text-foreground">Contact</a>
+          <Link to="/contact" className="text-sm text-muted-foreground transition hover:text-foreground" activeProps={{ className: "text-foreground" }}>Contact</Link>
           <Link to="/discover" className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition hover:shadow-glow">
             Register interest
           </Link>
@@ -60,7 +60,7 @@ export function Nav() {
           {links.map((l) => (
             <Link key={l.to} to={l.to} onClick={() => setOpen(false)}>{l.label}</Link>
           ))}
-          <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
+          <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
           <Link to="/discover" onClick={() => setOpen(false)} className="rounded-full bg-primary px-5 py-2 text-center font-semibold text-primary-foreground">
             Register interest
           </Link>
@@ -88,6 +88,7 @@ export function Footer() {
               <li key={l.to}><Link to={l.to} className="hover:text-foreground">{l.label}</Link></li>
             ))}
             <li><Link to="/discover" className="hover:text-foreground">Register interest</Link></li>
+            <li><Link to="/contact" className="hover:text-foreground">Contact us</Link></li>
           </ul>
         </div>
         <div>
@@ -106,11 +107,29 @@ export function Footer() {
   );
 }
 
-export function Layout({ children }: { children: ReactNode }) {
+export function ContactCta() {
+  return (
+    <section aria-labelledby="contact-cta" className="border-t bg-surface">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-5 py-14 text-center md:flex-row md:text-left">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-widest text-accent">Contact us</p>
+          <h2 id="contact-cta" className="mt-2 text-2xl font-bold md:text-3xl">Questions about NovaWatch?</h2>
+          <p className="mt-2 text-muted-foreground">Our team usually replies within one business day.</p>
+        </div>
+        <Link to="/contact" className="shrink-0 rounded-full bg-primary px-7 py-3.5 font-semibold text-primary-foreground transition hover:shadow-glow">
+          Contact Our Team
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export function Layout({ children, hideContactCta = false }: { children: ReactNode; hideContactCta?: boolean }) {
   return (
     <div className="min-h-screen">
       <Nav />
       <main>{children}</main>
+      {!hideContactCta && <ContactCta />}
       <Footer />
     </div>
   );
