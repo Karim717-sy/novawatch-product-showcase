@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BatteryRouteImport } from './routes/battery'
 import { Route as ConnectivityRouteImport } from './routes/connectivity'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as SignupRouteImport } from './routes/signup'
@@ -29,6 +30,11 @@ const BatteryRoute = BatteryRouteImport.update({
 const ConnectivityRoute = ConnectivityRouteImport.update({
   id: '/connectivity',
   path: '/connectivity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DiscoverRoute = DiscoverRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/battery': typeof BatteryRoute
   '/connectivity': typeof ConnectivityRoute
+  '/contact': typeof ContactRoute
   '/discover': typeof DiscoverRoute
   '/health': typeof HealthRoute
   '/signup': typeof SignupRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/battery': typeof BatteryRoute
   '/connectivity': typeof ConnectivityRoute
+  '/contact': typeof ContactRoute
   '/discover': typeof DiscoverRoute
   '/health': typeof HealthRoute
   '/signup': typeof SignupRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/battery': typeof BatteryRoute
   '/connectivity': typeof ConnectivityRoute
+  '/contact': typeof ContactRoute
   '/discover': typeof DiscoverRoute
   '/health': typeof HealthRoute
   '/signup': typeof SignupRoute
@@ -75,14 +84,28 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/battery' | '/connectivity' | '/discover' | '/health' | '/signup'
+    | '/'
+    | '/battery'
+    | '/connectivity'
+    | '/contact'
+    | '/discover'
+    | '/health'
+    | '/signup'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/battery' | '/connectivity' | '/discover' | '/health' | '/signup'
+  to:
+    | '/'
+    | '/battery'
+    | '/connectivity'
+    | '/contact'
+    | '/discover'
+    | '/health'
+    | '/signup'
   id:
     | '__root__'
     | '/'
     | '/battery'
     | '/connectivity'
+    | '/contact'
     | '/discover'
     | '/health'
     | '/signup'
@@ -92,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BatteryRoute: typeof BatteryRoute
   ConnectivityRoute: typeof ConnectivityRoute
+  ContactRoute: typeof ContactRoute
   DiscoverRoute: typeof DiscoverRoute
   HealthRoute: typeof HealthRoute
   SignupRoute: typeof SignupRoute
@@ -118,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/connectivity'
       fullPath: '/connectivity'
       preLoaderRoute: typeof ConnectivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/discover': {
@@ -148,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BatteryRoute: BatteryRoute,
   ConnectivityRoute: ConnectivityRoute,
+  ContactRoute: ContactRoute,
   DiscoverRoute: DiscoverRoute,
   HealthRoute: HealthRoute,
   SignupRoute: SignupRoute,
